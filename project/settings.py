@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production-12345abcdef')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 DEFAULT_LOGGING_LEVEL = "DEBUG" if DEBUG else "INFO"
 
 LOGGING = {
@@ -178,6 +178,7 @@ LOGIN_REDIRECT_URL = 'index'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -286,7 +287,9 @@ STATICFILES_DIRS = [
    BASE_DIR / 'project/static',
 ]
 
-print(BASE_DIR / 'project/static')
+# WhiteNoise configuration for serving static files in production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Media Folder Settings
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
