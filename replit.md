@@ -46,8 +46,9 @@ Core packages installed:
 
 ## Configuration Notes
 - SECRET_KEY uses environment variable with fallback to development key
-- DEBUG is currently True (should be False in production)
-- Static files served from `project/static/` and collected to `static/`
+- DEBUG controlled via DEBUG environment variable (defaults to False in production, set to True in development)
+- Static files served via WhiteNoise with compressed manifest storage
+- Static files collected from `project/static/` to `static/` (239 files, 695 post-processed)
 - Media files uploaded to `media/`
 - Multi-language support with German (de) and English (en)
 - Default timezone: Europe/Berlin
@@ -57,6 +58,11 @@ Core packages installed:
   - Social authentication (Google OAuth) not currently available
   - Can be re-enabled with newer compatible version if needed
 - Model warnings about AutoField (cosmetic, not critical)
+
+## Security Notes for Production
+- Set SECRET_KEY environment variable in production deployment
+- DEBUG defaults to False when not set (secure by default)
+- WhiteNoise configured for secure static file serving
 
 ## Development Workflow
 1. Start server: Workflow "Django Development Server" auto-starts
