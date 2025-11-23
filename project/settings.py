@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'SECRET_KEY_PLACEHOLDER'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production-12345abcdef')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -129,7 +129,7 @@ LOGGING = {
 }
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -151,10 +151,6 @@ INSTALLED_APPS = [
     'documents.apps.DocumentsConfig',
     'crispy_forms',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',  # for google auth
 
 ]
 
@@ -176,8 +172,6 @@ AUTHENTICATION_BACKENDS = (
     # used for default signin such as loggin into admin panel
     'django.contrib.auth.backends.ModelBackend',
 
-    # used for social authentications
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 LOGIN_REDIRECT_URL = 'index'
