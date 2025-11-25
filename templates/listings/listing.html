@@ -42,30 +42,38 @@
       </div>
       <div class="col-4 text-right mr-0 pr-0">
 
-	{% if user.is_authenticated %}
+        {% if user.is_authenticated %}
           {% if user.is_staff %}
 
         <a href="{% url 'admin:listings_listing_change' listing.id %}" target="_blank"
           class="btn btn-info text-white mr-0">
           Edit
         </a>
-	{% endif %}
-	{% endif%}
+        {% endif %}
+        {% endif%}
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-9">
         <!-- Home Main Image -->
+        {% if listing.image %}
         <img src="{{ listing.image.url }}" alt="" class="img-main img-fluid mb-3">
+        {% else %}
+        <div class="img-main img-fluid mb-3 bg-light d-flex align-items-center justify-content-center" style="height: 400px; color: #999;">
+          {{ _("No image available") }}
+        </div>
+        {% endif %}
         <!-- Thumbnails -->
         <div class="row thumbs listing-second-title">
           {% for img in listing.listingimage_set.all %}
+          {% if img.image %}
           <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2">
             <a href="{{ img.image.url }}" data-lightbox="home-images">
               <img src="{{ img.image.url }}" alt="" class="img-fluid img-inline-listing">
             </a>
           </div>
+          {% endif %}
           <br>
           {% endfor%}
         </div>
