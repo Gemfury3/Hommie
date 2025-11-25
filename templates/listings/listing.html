@@ -181,7 +181,13 @@
 
 
           <div class="col-12 px-3 my-5">
+            {% if listing.get_coordinates %}
             <div id="map" style="width:100%;height:400px;"></div>
+            {% else %}
+            <div class="bg-light p-3 text-center" style="height: 400px; display: flex; align-items: center; justify-content: center; color: #999;">
+              {{ _("Map unavailable") }}
+            </div>
+            {% endif %}
           </div>
 
         </div>

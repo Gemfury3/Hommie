@@ -32,6 +32,11 @@ def get_coordinates(address):
                 .raw
                 .altitude
     """
-    geolocator = Nominatim(user_agent="realestate-tornode")
-    location = geolocator.geocode(address)
-    return location
+    try:
+        from geopy.exc import GeocoderTimedOut
+        geolocator = Nominatim(user_agent="realestate-tornode", timeout=5)
+        location = geolocator.geocode(address)
+        return location
+    except (GeocoderTimedOut, Exception):
+        # If geocoding fails or times out, return None gracefully
+        return None
